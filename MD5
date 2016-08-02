@@ -1,0 +1,11 @@
+3248faef1560ab87f7bec745dcf9e395 *DESCRIPTION
+99fcacc25fb0939999d353900d870705 *NAMESPACE
+83438404c0c592b4463fed59f3605bdf *R/barplot_fs.R
+f0a670ff8bb20b765c0249b6eeb94517 *R/efsdata.R
+11eac73769c92adb69f415bffa5445b1 *R/ensemble_fs.R
+e273fffdf4ea10dc23f08b13ccc0e00b *R/logreg_test.R
+0d35f0db266bad0d17b052883b2a35aa *data/efsdata.rda
+bc29b9ac7982f11ca1620ba805418d0f *man/barplot_fs.Rd
+6127882f365fc0431c2903feb922bbf9 *man/efsdata.Rd
+fbb20edb060ff9af01de40180c07dc47 *man/ensemble_fs.Rd
+dd0628fe1750e9b3cdb4e8ff26881b64 *man/logreg_test.Rd
