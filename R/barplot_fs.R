@@ -21,8 +21,7 @@
 #'  ##Generate a ranking based on inportance (with default
 #'  ##NA_threshold = 0.7,cor_threshold = 0.2)
 #'  efs<-ensemble_fs(efsdata,5,runs=2)
-#'  ##Create a ROC Curve based on the output from
-#'  ##efs <- ensemble_fs
+#'  ##Create a cumulative barplot based on the output from efs 
 #'  barplot_fs("test",efs)
 #'@seealso \link{barplot}, \link{pdf}
 #'@importFrom grDevices pdf dev.off

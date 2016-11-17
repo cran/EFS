@@ -9,22 +9,17 @@ ensemble_fs(data, classnumber, NA_threshold = 0.2, cor_threshold = 0.7,
   FALSE))
 }
 \arguments{
-\item{data}{the name of the dataset, which should already be
-loaded in the environment.}
+\item{data}{object of class data.frame}
 
-\item{classnumber}{nominal, dichotomous classification.
-variable, number of column in dataset, which should be the dependent variable for classification.}
+\item{classnumber}{numeric, index of variable for binary classification}
 
 \item{NA_threshold}{(optional) decimal number in range of [0,1]. Threshold for deletion
-of features with a greater proportion of NAs than NA_threshold.
-than \code{NA_threshold}}
+of features with a greater proportion of NAs than \code{NA_threshold}.}
 
-\item{cor_threshold}{(optional) used only for Spearman and Pearson
-correlation. The correlation within features is tested.
-If the correlation of 2 features is greater than.
-\code{cor_threshold} the dependent feature is deleted}
+\item{cor_threshold}{(optional) used only for Spearman and Pearson correlation. Correlation threshold within features.
+If the correlation of 2 features is greater than \code{cor_threshold} the dependent feature is deleted.}
 
-\item{runs}{(optional) amount of runs for randomForest and cforest to gain higher robustness.}
+\item{runs}{(optional) used only for randomForest and cforest. Amount of runs to gain higher robustness.}
 
 \item{selection}{(optional) vector of length eight with TRUE or FALSE values. Selection of feature selection methods to be conducted.}
 }
@@ -35,8 +30,8 @@ table of normalized importance values of class matrix
 \description{
 Uses an ensemble of feature selection methods
  to create a normalized quantitative
- ranking of all relevant features. Irrelevant features
- (e.g. too many NA or variance = 1) will be deleted. See
+ score of all relevant features. Irrelevant features
+ (e.g. features with too many missing values or variance = 1) will be deleted. See
  Details for a list of tests used in this function.
 }
 \details{
@@ -72,8 +67,8 @@ Following methods are provided in the \code{ensemble_fs}:
  ##loading dataset in Environment
  data(efsdata)
  ##Generate a ranking based on importance (with default NA_threshold = 0.2,
- ##cor_threshold = 0.7, selection = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE))
- efs<-ensemble_fs(efsdata,5,runs=2)
+ ##cor_threshold = 0.7, selection = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE))
+ efs <- ensemble_fs(efsdata, 5, runs=2)
 }
 \author{
 Ursula Neumann

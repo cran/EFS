@@ -1,18 +1,17 @@
 Title: Tool for Ensemble Feature Selection
 Description: Provides a function to check the
   importance of a feature based on a dependent classification
-  variable. An ensemble of correlation and importance measure
-  tests are used to determine the normed importance value of
+  variable. An ensemble of feature selection methods
+  is used to determine the normalized importance value of
   all features. Combining these methods in one function
-  (building the sum of the importance values) leads to a better
-  tool for selecting most important features. This selection
+  (building the cumulative importance values) provides a 
+  stable feature selection tool. This selection
   can also be viewed in a barplot using the barplot_fs() function
-  and proved using an also provided function for a logistic
-  regression model, namely logreg_test().
+  and proved using the evaluation function efs_eval().
 Package: EFS
 Type: Package
-Version: 1.0.0
-Date: 2016-04-13
+Version: 1.0.1
+Date: 2016-11-16
 License: GPL (>= 2)
 Encoding: UTF-8
 Author: Nikita Genze, Ursula Neumann
@@ -22,5 +21,5 @@ Imports: party, pROC, randomForest, ROCR, grDevices, graphics, stats
 Repository: CRAN
 RoxygenNote: 5.0.1
 NeedsCompilation: no
-Packaged: 2016-08-02 12:18:29 UTC; ursula
-Date/Publication: 2016-08-02 14:45:33
+Packaged: 2016-11-17 14:22:41 UTC; ursula
+Date/Publication: 2016-11-17 18:33:50

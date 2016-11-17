@@ -1,8 +1,8 @@
 #'@title Ensemble Feature Selection
 #'@description Uses an ensemble of feature selection methods
 #'  to create a normalized quantitative
-#'  ranking of all relevant features. Irrelevant features
-#'  (e.g. too many NA or variance = 1) will be deleted. See
+#'  score of all relevant features. Irrelevant features
+#'  (e.g. features with too many missing values or variance = 1) will be deleted. See
 #'  Details for a list of tests used in this function.
 #'@details Following methods are provided in the \code{ensemble_fs}:
 #'   \itemize{
@@ -32,18 +32,13 @@
 #'    The maximum score for features depends on the input of \code{selection}.
 #'    The scores are always divided through the amount of selected feature selection, respectively the amount of TRUEs. 
 #'
-#'@param data the name of the dataset, which should already be
-#'  loaded in the environment.
-#'@param classnumber nominal, dichotomous classification.
-#'  variable, number of column in dataset, which should be the dependent variable for classification.
+#'@param data object of class data.frame
+#'@param classnumber numeric, index of variable for binary classification
 #'@param NA_threshold (optional) decimal number in range of [0,1]. Threshold for deletion
-#'  of features with a greater proportion of NAs than NA_threshold.
-#'  than \code{NA_threshold}
-#'@param cor_threshold (optional) used only for Spearman and Pearson
-#'  correlation. The correlation within features is tested.
-#'  If the correlation of 2 features is greater than.
-#'  \code{cor_threshold} the dependent feature is deleted
-#'@param runs (optional) amount of runs for randomForest and cforest to gain higher robustness.
+#'  of features with a greater proportion of NAs than \code{NA_threshold}.
+#'@param cor_threshold (optional) used only for Spearman and Pearson correlation. Correlation threshold within features.
+#'  If the correlation of 2 features is greater than \code{cor_threshold} the dependent feature is deleted.
+#'@param runs (optional) used only for randomForest and cforest. Amount of runs to gain higher robustness.
 #'@param selection (optional) vector of length eight with TRUE or FALSE values. Selection of feature selection methods to be conducted.
 #'@return table of normalized importance values of class matrix
 #'  (used methods as rows and features of the imported file as columns).
@@ -68,8 +63,8 @@
 #'  ##loading dataset in Environment
 #'  data(efsdata)
 #'  ##Generate a ranking based on importance (with default NA_threshold = 0.2,
-#'  ##cor_threshold = 0.7, selection = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE))
-#'  efs<-ensemble_fs(efsdata,5,runs=2)
+#'  ##cor_threshold = 0.7, selection = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE))
+#'  efs <- ensemble_fs(efsdata, 5, runs=2)
 #'@seealso \link{wilcox.test},
 #'  \link[randomForest]{randomForest},
 #'  \link[party]{cforest},
@@ -79,9 +74,10 @@
 #'@importFrom party cforest_control cforest varimp varimpAUC
 #'@export
 
-ensemble_fs <- function(data,classnumber,
-                        NA_threshold = 0.2, cor_threshold = 0.7,
-                        runs = 100, selection = c(TRUE, TRUE, TRUE,TRUE, TRUE, TRUE, FALSE, FALSE))
+ensemble_fs <- function(data, classnumber,
+                        NA_threshold = 0.2, 
+                        cor_threshold = 0.7, runs = 100, 
+                        selection = c(TRUE, TRUE, TRUE,TRUE, TRUE, TRUE, FALSE, FALSE))
   {
   start.time <- Sys.time()
 
