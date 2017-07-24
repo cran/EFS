@@ -31,4 +31,3 @@ modified data from
  \url{http://wetterstationen.meteomedia.de/}
 }
 \keyword{datasets}
-

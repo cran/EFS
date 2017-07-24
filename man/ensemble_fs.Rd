@@ -9,19 +9,19 @@ ensemble_fs(data, classnumber, NA_threshold = 0.2, cor_threshold = 0.7,
   FALSE))
 }
 \arguments{
-\item{data}{object of class data.frame}
+\item{data}{an object of class data.frame}
 
-\item{classnumber}{numeric, index of variable for binary classification}
+\item{classnumber}{a number indicating the index of variable for binary classification}
 
-\item{NA_threshold}{(optional) decimal number in range of [0,1]. Threshold for deletion
+\item{NA_threshold}{a number in range of [0,1]. Threshold for deletion
 of features with a greater proportion of NAs than \code{NA_threshold}.}
 
-\item{cor_threshold}{(optional) used only for Spearman and Pearson correlation. Correlation threshold within features.
+\item{cor_threshold}{a number used only for Spearman and Pearson correlation. Correlation threshold within features.
 If the correlation of 2 features is greater than \code{cor_threshold} the dependent feature is deleted.}
 
-\item{runs}{(optional) used only for randomForest and cforest. Amount of runs to gain higher robustness.}
+\item{runs}{a number used only for randomForest and cforest. Amount of runs to gain higher robustness.}
 
-\item{selection}{(optional) vector of length eight with TRUE or FALSE values. Selection of feature selection methods to be conducted.}
+\item{selection}{a vector of length eight with TRUE or FALSE values. Selection of feature selection methods to be conducted.}
 }
 \value{
 table of normalized importance values of class matrix
@@ -64,14 +64,11 @@ Following methods are provided in the \code{ensemble_fs}:
    The scores are always divided through the amount of selected feature selection, respectively the amount of TRUEs.
 }
 \examples{
- ##loading dataset in Environment
+ ## Loading dataset in environment
  data(efsdata)
- ##Generate a ranking based on importance (with default NA_threshold = 0.2,
- ##cor_threshold = 0.7, selection = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE))
+ ## Generate a ranking based on importance (with default NA_threshold = 0.2,
+ ## cor_threshold = 0.7, selection = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE))
  efs <- ensemble_fs(efsdata, 5, runs=2)
-}
-\author{
-Ursula Neumann
 }
 \references{
 \itemize{
@@ -97,4 +94,6 @@ Ursula Neumann
  \link[stats]{cor},
  \link[stats]{glm}
 }
-
+\author{
+Ursula Neumann
+}

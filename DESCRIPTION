@@ -10,16 +10,17 @@ Description: Provides a function to check the
   and proved using the evaluation function efs_eval().
 Package: EFS
 Type: Package
-Version: 1.0.1
-Date: 2016-11-16
+Version: 1.0.3
+Date: 2016-11-18
 License: GPL (>= 2)
 Encoding: UTF-8
 Author: Nikita Genze, Ursula Neumann
 Maintainer: Ursula Neumann <u.neumann@wz-straubing.de>
 LazyLoad: yes
-Imports: party, pROC, randomForest, ROCR, grDevices, graphics, stats
+Imports: party, pROC, randomForest, ROCR, grDevices, graphics, stats,
+        utils
 Repository: CRAN
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 NeedsCompilation: no
-Packaged: 2016-11-17 14:22:41 UTC; ursula
-Date/Publication: 2016-11-17 18:33:50
+Packaged: 2017-07-24 13:57:33 UTC; u.neumann
+Date/Publication: 2017-07-24 15:45:14 UTC

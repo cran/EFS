@@ -32,14 +32,14 @@
 #'    The maximum score for features depends on the input of \code{selection}.
 #'    The scores are always divided through the amount of selected feature selection, respectively the amount of TRUEs. 
 #'
-#'@param data object of class data.frame
-#'@param classnumber numeric, index of variable for binary classification
-#'@param NA_threshold (optional) decimal number in range of [0,1]. Threshold for deletion
+#'@param data an object of class data.frame
+#'@param classnumber a number indicating the index of variable for binary classification
+#'@param NA_threshold a number in range of [0,1]. Threshold for deletion
 #'  of features with a greater proportion of NAs than \code{NA_threshold}.
-#'@param cor_threshold (optional) used only for Spearman and Pearson correlation. Correlation threshold within features.
+#'@param cor_threshold a number used only for Spearman and Pearson correlation. Correlation threshold within features.
 #'  If the correlation of 2 features is greater than \code{cor_threshold} the dependent feature is deleted.
-#'@param runs (optional) used only for randomForest and cforest. Amount of runs to gain higher robustness.
-#'@param selection (optional) vector of length eight with TRUE or FALSE values. Selection of feature selection methods to be conducted.
+#'@param runs a number used only for randomForest and cforest. Amount of runs to gain higher robustness.
+#'@param selection a vector of length eight with TRUE or FALSE values. Selection of feature selection methods to be conducted.
 #'@return table of normalized importance values of class matrix
 #'  (used methods as rows and features of the imported file as columns).
 #'@author Ursula Neumann
@@ -60,10 +60,10 @@
 #'    Random Forests. BMC Bioinformatics.2013, 14, 119. \cr
 #'}
 #'@examples
-#'  ##loading dataset in Environment
+#'  ## Loading dataset in environment
 #'  data(efsdata)
-#'  ##Generate a ranking based on importance (with default NA_threshold = 0.2,
-#'  ##cor_threshold = 0.7, selection = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE))
+#'  ## Generate a ranking based on importance (with default NA_threshold = 0.2,
+#'  ## cor_threshold = 0.7, selection = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE))
 #'  efs <- ensemble_fs(efsdata, 5, runs=2)
 #'@seealso \link{wilcox.test},
 #'  \link[randomForest]{randomForest},
@@ -95,7 +95,8 @@ ensemble_fs <- function(data, classnumber,
     runs=100
     print("default value for runs = 100")}
   if(missing(selection)){
-    selection = c(TRUE, TRUE, TRUE,TRUE, TRUE, TRUE, FALSE, FALSE)}
+    selection = c(TRUE, TRUE, TRUE,TRUE, TRUE, TRUE, FALSE, FALSE)
+    print("default value for selection is c(TRUE, TRUE, TRUE,TRUE, TRUE, TRUE, FALSE, FALSE)")}
   if(!is.numeric(NA_threshold) | NA_threshold > 1 |
      NA_threshold < 0)
     stop("invalid argument:
@@ -105,7 +106,6 @@ ensemble_fs <- function(data, classnumber,
     stop("invalid argument:
          cor_threshold is required to be in [0,1]")
 
-  
   classname = colnames(data)[classnumber]
 
   # Löschen von Parametern mit zu vielen NA
@@ -359,11 +359,16 @@ ensemble_fs <- function(data, classnumber,
     imp_Gini = c()
 
     for(i in 1:runs){
+      print(i)
+      start.run <- Sys.time()
       rf =randomForest(as.factor(klasse)~.,
                        data=data.frame,importance=TRUE,
                        replace=FALSE,ntree=1000)
       imp_accuracy = cbind(imp_accuracy,rf$importance[,3])
       imp_Gini = cbind(imp_Gini,rf$importance[,4])
+      end.run <- Sys.time()
+      diff <- end.run - start.run
+      print(diff)
     }
 
     # Mitteln der runs
@@ -415,6 +420,8 @@ ensemble_fs <- function(data, classnumber,
     data.frame= cbind(data,klasse)
 
     for(i in 1:runs){
+      print(i)
+      start.run <- Sys.time()
       #mincriterion = 0 means p-value can be of arbitrary size
       cf_controls = cforest_control(mincriterion = 0,
                                     ntree = 1000,
@@ -425,6 +432,9 @@ ensemble_fs <- function(data, classnumber,
       # Importance und AUC_Importance
       imp=cbind(imp, varimp(cf))
       AUC_imp=cbind(AUC_imp, varimpAUC(cf))
+      end.run <- Sys.time()
+      diff <- end.run - start.run
+      print(diff)
     }
 
     # Mittelwert der Spalten als Vektor

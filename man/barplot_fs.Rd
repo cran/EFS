@@ -4,7 +4,7 @@
 \alias{barplot_fs}
 \title{Visualization of \code{ensemble_fs} in barplot}
 \usage{
-barplot_fs(name, efs_table)
+barplot_fs(name, efs_table, order = TRUE)
 }
 \arguments{
 \item{name}{a character string giving the name of the file.
@@ -12,8 +12,11 @@ If it is NULL, then no external file is created
 (effectively, no drawing occurs),
 but the device may still be queried.}
 
-\item{efs_table}{table object of class matrix (retrieved
+\item{efs_table}{a table object of class matrix (retrieved
 from \code{ensemble_fs})}
+
+\item{order}{a logical value indicating whether the bars should be sorted in 
+descending order or not}
 }
 \description{
 Generates a barplot from
@@ -24,20 +27,25 @@ Generates a barplot from
  \cr x-axis: sum of all normed importance values of each 
  feature ranging from 0 to 1 
  \cr y-axis: names of features
+ \cr If the number of features is greater or equal to 100,
+ a barplot of the summed up importance over all FS method
+ is created. 
+ \cr x-axis: features; y-axis: importance values
+ \cr If \code{order = TRUE} the bars will be ordered in an increasing 
+ order bottom up (i.e., the most important parameter are on top).
 }
 \examples{
- ##loading dataset in Environment
+ ## Loading dataset in environment
  data(efsdata)
- ##Generate a ranking based on inportance (with default
- ##NA_threshold = 0.7,cor_threshold = 0.2)
- efs<-ensemble_fs(efsdata,5,runs=2)
- ##Create a cumulative barplot based on the output from efs 
- barplot_fs("test",efs)
-}
-\author{
-Ursula Neumann
+ ## Generate a ranking based on inportance (with default
+ ## NA_threshold = 0.7,cor_threshold = 0.2)
+ efs <- ensemble_fs(efsdata ,5 ,runs=2)
+ ## Create a cumulative barplot based on the output from efs 
+ barplot_fs("test", efs, order = TRUE)
 }
 \seealso{
 \link{barplot}, \link{pdf}
 }
-
+\author{
+Ursula Neumann
+}
